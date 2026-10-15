@@ -1,0 +1,23 @@
+exclude: '\.pb\.go$'
+repos:
+  - repo: https://github.com/dnephin/pre-commit-golang
+    rev: v0.5.1
+    hooks:
+      - id: go-fmt
+      - id: go-imports
+      - id: golangci-lint
+      - id: go-cyclo
+        args: [ -over=20 ]
+#      - id: validate-toml
+      - id: go-mod-tidy
+#      - id: go-unit-tests
+#      - id: go-build
+#  - repo: local
+#    hooks:
+#      - id: go-unit-test-coverage     # 执行单元测试; 并检查单元测试覆盖率
+#        name: 'go-unit-test-coverage'
+#        entry: run-go-unit-test-coverage.sh
+#        language: script
+#        pass_filenames: false
+#        types: [go]
+#        description: "Runs `go test`"

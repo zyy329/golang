@@ -1,0 +1,32 @@
+version: "2"
+
+run:
+  timeout: 5m  # 设置代码检查的超时时间为 5 分钟
+  modules-download-mode: readonly  # 以只读模式下载 Go 模块，避免修改 go.mod 或 go.sum 文件
+
+linters:
+  enable:  # 启用以下 linter 工具
+    - errcheck  # 检查错误返回值是否被正确处理
+    - govet  # 检查代码中的潜在问题（如类型断言、空指针等）
+    - staticcheck  # 静态代码分析，检查未使用的变量、冗余代码等
+    - revive # 检查代码风格和潜在问题, 替代 golint(已被弃用)
+    - unused  # 未使用定义
+#  disable:
+  settings:
+    revive:
+      rules:
+        - name: var-naming
+          # 官网文档: https://github.com/mgechev/revive?tab=readme-ov-file#var-naming  GUI配置工具可参考: https://zhuanlan.zhihu.com/p/621879451
+          # 第一个数组是忽略的检查项, 第二个数组是新增的检查项
+          arguments: [["ID","SQL","URL","IP","HTTP"],[]]
+  exclusions:                     # 文档地址: https://golangci-lint.run/usage/configuration/   exclusions
+    generated: lax                # Mode of the generated files analysis
+    warn-unused: true             # Log a warning if an exclusion rule is unused
+#    rules:
+#      - linters:
+#          - revive
+#        text: exported            # 需修复后删除该项
+
+issues:
+  max-issues-per-linter: 0  # 不限制每个 linter 的问题数量
+  max-same-issues: 0  # 不限制相同问题类型的报告数量
